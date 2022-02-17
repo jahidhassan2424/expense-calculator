@@ -1,48 +1,60 @@
-const inputIncome = document.getElementById('inputIncome');
+const inputIncome = document.getElementById('input-income');
+
 const inputExpenseFood = document.getElementById('inputExpenseFood');
 const inputExpenseRent = document.getElementById('inputExpenseRent');
 const inputExpenseCloths = document.getElementById('inputExpenseCloths');
+const totalExpense = document.getElementById('totalExpense');
+const balance = document.getElementById('balance');
 const popupError = document.getElementById('popupError');
 const inputExpenseSave = document.getElementById('inputExpenseSave');
-const buttonCalculate = document.getElementById('buttonCalculate');
-
+const buttonCalculate = document.getElementById('button-calculate');
+const buttonSave = document.getElementById('buttonSave');
 buttonCalculate.addEventListener('click', function () {
-    popupError.style.display = 'none';
     inputIncome.style.borderColor = 'black';
     inputExpenseFood.style.borderColor = 'black';
-    const incomeInputNumberValidation = parseInt(inputIncome.value);
-
-    if (typeof (parseInt(inputIncome.value)) != 'number' || inputIncome.value < 0 || inputIncome.value == "") {
-        inputIncome.style.borderColor = 'red';
-        popupError.style.display = 'block';
-        document.getElementById('popupErrorInnerText').innerText = "Income must be a number"
-
+    inputExpenseRent.style.borderColor = 'black';
+    inputExpenseCloths.style.borderColor = 'black';
+    popupError.style.display = 'none';
+    if (isNaN(parseInt(inputIncome.value)) || parseInt(inputIncome.value) < 0) {
+        console.log('Invalid Input');
+        errorMsg(inputIncome);
     }
-    else if (incomeInputNumberValidation > 0) {
-        console.log('success')
+    else if (isNaN(parseInt(inputExpenseFood.value)) || parseInt(inputExpenseFood.value) < 0) {
+        console.log('Invalid Input');
+        errorMsg(inputExpenseFood);
     }
-
-    else if (inputExpenseFood.value < 0 || inputExpenseFood.value == '' || typeof (parseInt(inputExpenseFood.value)) != 'number') {
-        inputExpenseFood.style.borderColor = 'red';
-        popupError.style.display = 'block';
-        document.getElementById('popupErrorInnerText').innerText = "Input must be positive number"
+    else if (isNaN(parseInt(inputExpenseRent.value)) || parseInt(inputExpenseRent.value) < 0) {
+        console.log('Invalid Input');
+        errorMsg(inputExpenseRent);
     }
-
+    else if (isNaN(parseInt(inputExpenseCloths.value)) || parseInt(inputExpenseCloths.value) < 0) {
+        console.log('Invalid Input');
+        errorMsg(inputExpenseCloths);
+    }
     else {
-        inputIncome.style.borderColor = 'black';
-        inputExpenseFood.style.borderColor = 'black';
-        inputExpenseRent.style.borderColor = 'black';
-        inputExpenseCloths.style.borderColor = 'black';
-
+        totalExpense.innerText = (parseInt(inputExpenseFood.value) + parseInt(inputExpenseRent.value) + parseInt(inputExpenseCloths.value))
+        balance.innerText = (inputIncome.value - totalExpense.innerText);
+        saveSection();
     }
-    console.log(incomeInputNumberValidation)
-    console.log(typeof (parseInt(inputIncome.value)))
-    console.log(typeof (parseInt(inputIncome.value)))
-    console.log(typeof (parseInt(inputIncome.value) == 'number'))
-    console.log(isNaN(incomeInputNumberValidation))
 
+    // console.log(typeof (parseInt(inputIncome)));
+    // console.log(parseInt(inputIncomeValue))
 
 })
+buttonSave.addEventListener('click', function () {
+    savingAmount.innerText = (balance.innerText / inputExpenseSave.value);
+    remainingBalance.innerText = balance.innerText - savingAmount.innerText;
+})
+function errorMsg(fieldName) {
+    fieldName.style.borderColor = 'red';
+    popupError.style.display = 'block';
+    popupErrorInnerText.innerText = 'Input must be positive number';
+}
+function saveSection() {
+    savingAmount.innerText = (balance.innerText / inputExpenseSave.value);
+    remainingBalance.innerText = balance.innerText - savingAmount.innerText;
+}
+
 popupError.addEventListener('click', function () {
     popupError.style.display = 'none';
 
