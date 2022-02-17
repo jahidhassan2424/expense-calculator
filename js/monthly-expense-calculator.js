@@ -51,14 +51,20 @@ buttonCalculate.addEventListener('click', function () {
 // Saving Section
 buttonSave.addEventListener('click', function () {
     popupError.style.display = 'none';
-    if (isNaN(parseInt(inputExpenseSave.value)) || parseInt(inputExpenseSave.value) < 0) {
-        console.log('Invalid Input');
+    if (parseInt(inputExpenseSave.value) < 0) {
+        errorMsg(inputExpenseSave, 'Input must be positive');
     }
+    else if (isNaN(parseInt(inputExpenseSave.value))) {
+        console.log('Invalid Input');
+        errorMsg(inputExpenseSave, 'Invalid input, only numbers allowed!');
+    }
+
     else {
         if ((parseInt(inputIncome.value)) * (parseInt(inputExpenseSave.value) / 100) > parseInt(balance.innerText)) {
             // console.log('You cant save more than your remaining balance');
             errorMsg(inputExpenseSave, 'You cant save more than your remaining balance')
         }
+
         else {
             savingAmount.innerText = (parseInt(inputIncome.value)) * (parseInt(inputExpenseSave.value) / 100);
             remainingBalance.innerText = substract(balance, savingAmount);
