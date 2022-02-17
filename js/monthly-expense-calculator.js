@@ -18,27 +18,24 @@ buttonCalculate.addEventListener('click', function () {
     inputExpenseCloths.style.borderColor = 'black';
     popupError.style.display = 'none';
     if (isNaN(parseInt(inputIncome.value)) || parseInt(inputIncome.value) < 0) {
-        console.log('Invalid Input');
         errorMsg(inputIncome, 'Income must be a positive number');
     }
     else if (isNaN(parseInt(inputExpenseFood.value)) || parseInt(inputExpenseFood.value) < 0) {
-        console.log('Invalid Input');
         errorMsg(inputExpenseFood, 'Food Expenses must be a positive number');
     }
     else if (isNaN(parseInt(inputExpenseRent.value)) || parseInt(inputExpenseRent.value) < 0) {
-        console.log('Invalid Input');
         errorMsg(inputExpenseRent, 'Rent Expenses must be a positive number');
     }
     else if (isNaN(parseInt(inputExpenseCloths.value)) || parseInt(inputExpenseCloths.value) < 0) {
-        console.log('Invalid Input');
         errorMsg(inputExpenseCloths, 'Cloth Expenses must be a positive number');
     }
+
+    // Calculate if No Error
     else {
         if ((parseInt(inputExpenseFood.value) + parseInt(inputExpenseRent.value) + parseInt(inputExpenseCloths.value)) > inputIncome.value) {
             errorMsg(inputExpenseFood, '');
             errorMsg(inputExpenseRent, '');
             errorMsg(inputExpenseCloths, 'Your expenses cant be more than your Income');
-
         }
         else {
             totalExpense.innerText = (parseInt(inputExpenseFood.value) + parseInt(inputExpenseRent.value) + parseInt(inputExpenseCloths.value))
@@ -46,8 +43,8 @@ buttonCalculate.addEventListener('click', function () {
             remainingBalance.innerText = parseInt(balance.innerText);
         }
     }
-
 })
+
 // Saving Section
 buttonSave.addEventListener('click', function () {
     popupError.style.display = 'none';
@@ -59,10 +56,10 @@ buttonSave.addEventListener('click', function () {
         errorMsg(inputExpenseSave, 'Invalid input, only numbers allowed!');
     }
 
+    // Save Button If No Error
     else {
         if ((parseInt(inputIncome.value)) * (parseInt(inputExpenseSave.value) / 100) > parseInt(balance.innerText)) {
-            // console.log('You cant save more than your remaining balance');
-            errorMsg(inputExpenseSave, 'You cant save more than your remaining balance')
+            errorMsg(inputExpenseSave, 'You cant save more than your remaining balance');
         }
 
         else {
@@ -72,12 +69,11 @@ buttonSave.addEventListener('click', function () {
         }
     }
 })
+
 //Variable Declearation Function
 function variable(idName) {
     return document.getElementById(idName);
-
 }
-
 
 // Show Error Aleart Function
 function errorMsg(fieldName, text) {
