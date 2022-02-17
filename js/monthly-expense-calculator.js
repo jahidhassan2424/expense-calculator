@@ -34,9 +34,17 @@ buttonCalculate.addEventListener('click', function () {
         errorMsg(inputExpenseCloths, 'Cloth Expenses must be a positive number');
     }
     else {
-        totalExpense.innerText = (parseInt(inputExpenseFood.value) + parseInt(inputExpenseRent.value) + parseInt(inputExpenseCloths.value))
-        balance.innerText = (inputIncome.value - totalExpense.innerText);
-        remainingBalance.innerText = parseInt(balance.innerText);
+        if ((parseInt(inputExpenseFood.value) + parseInt(inputExpenseRent.value) + parseInt(inputExpenseCloths.value)) > inputIncome.value) {
+            errorMsg(inputExpenseFood, '');
+            errorMsg(inputExpenseRent, '');
+            errorMsg(inputExpenseCloths, 'Your expenses cant be more than your Income');
+
+        }
+        else {
+            totalExpense.innerText = (parseInt(inputExpenseFood.value) + parseInt(inputExpenseRent.value) + parseInt(inputExpenseCloths.value))
+            balance.innerText = (inputIncome.value - totalExpense.innerText);
+            remainingBalance.innerText = parseInt(balance.innerText);
+        }
     }
 
 })
